@@ -131,6 +131,8 @@ No direct model-to-database access. No automatic customs clearance. Bound tool l
 
 The `modern-warehouse` project is deployed in the `glenadamson1984s-projects` account. The frontend is at the repository root. `vercel.json` explicitly declares one Vite frontend service with `pnpm build` and output directory `dist`, avoiding automatic detection of the Laravel scaffold as another frontend. `.vercelignore` excludes the PHP backend and local environment files from CLI uploads. Leave `VITE_API_URL` empty for browser-local sample data. Vercel serves the frontend; it does not run the PHP backend in this configuration.
 
+The Vercel project is connected to `glenadamson1984/modern-warehouse`, with `main` selected as the production branch. Production updates are delivered through this Git integration rather than requiring a manual CLI deployment.
+
 ## Next milestones
 
 1. Verify the Laravel migrations and receiving flow against MySQL.
