@@ -10,5 +10,6 @@ export function parseManifest(csv:string,existing:Shipment[]):Shipment {
  if(existing.some(s=>s.id===id))throw new Error('This manifest reference already exists.');
  const seen=new Set<string>();
  for(const r of parsed.data){if(required.some(k=>!r[k]?.trim())||required.slice(0,6).some(k=>r[k].trim()!==row[k].trim()))throw new Error('All rows must describe the same shipment and contain every required value.');if(seen.has(r.parcel_id.trim())||existing.some(s=>s.parcels.some(p=>p.id===r.parcel_id.trim())))throw new Error('Parcel labels must be unique across all shipments.');seen.add(r.parcel_id.trim())}
- return {id,customer:row.customer.trim(),origin:row.origin.trim(),carrier:row.carrier.trim(),eta:row.eta.trim(),bay:row.bay.trim(),clearance:'Pending',parcels:parsed.data.map(r=>({id:r.parcel_id.trim(),description:r.description.trim(),received:false,damaged:false})),exceptions:[],events:[{id:crypto.randomUUID(),at:new Date().toISOString(),action:'Manifest imported',detail:`${parsed.data.length} parcels imported from CSV`,actor:'Demo coordinator'}]};
+ return {id,customer:row.customer.trim(),origin:row.origin.trim(),carrier:row.carrier.trim(),eta:row.eta.trim(),bay:row.bay.trim(),clearance:'Pending',parcels:parsed.data.map(r=>({id:r.parcel_id.trim(),description:r.description.trim(),received:false,damaged:false})),exceptions:[],events:[{id:crypto.randomUUID(),at:new Date().toISOString(),action:'Manifest imported',detail:`${parsed.data.length} parcels imported from CSV`,actor:'PoC coordinator'}]};
 }
+

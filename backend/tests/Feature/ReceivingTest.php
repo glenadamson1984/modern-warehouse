@@ -46,4 +46,14 @@ class ReceivingTest extends TestCase
         $this->app->instance('env', 'production');
         $this->getJson('/api/shipments')->assertStatus(503);
     }
+
+    public function test_import_ignores_client_supplied_clearance_and_receiving_history(): void
+    {
+        $shipment = ['id' => 'MW-2000', 'customer' => 'Sample customer', 'origin' => 'Paris, FR', 'carrier' => 'Carrier', 'eta' => '12:00', 'bay' => 'Bay 01', 'clearance' => 'Cleared', 'events' => [['action' => 'Untrusted history']], 'parcels' => [['id' => 'MW-2000-P001', 'description' => 'Homewares', 'received' => true, 'damaged' => true]]];
+        $this->postJson('/api/shipments', ['shipment' => $shipment])->assertCreated();
+        $this->assertDatabaseHas('shipments', ['id' => 'MW-2000', 'clearance' => 'Pending']);
+        $this->assertDatabaseHas('parcels', ['id' => 'MW-2000-P001', 'received' => false, 'damaged' => false]);
+        $this->postJson('/api/shipments', ['shipment' => $shipment])->assertUnprocessable();
+        $this->assertDatabaseCount('shipments', 1);
+    }
 }

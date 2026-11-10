@@ -9,5 +9,6 @@ export const seed = ():Shipment[] => [
  id:String(id),customer:String(customer),origin:String(origin),carrier:String(carrier),eta:String(eta),bay:String(bay),clearance:clearance as Shipment['clearance'],
  parcels:Array.from({length:Number(count)},(_,i)=>({id:`${id}-P${String(i+1).padStart(3,'0')}`,description:['Homewares','Textiles','Accessories'][i%3],received:i<Number(received),damaged:index===1&&i===2})),
  exceptions:index===1?[{id:'EX-001',parcelId:`${id}-P003`,type:'Damage',note:'Outer carton crushed on arrival. Contents require inspection.',resolved:false,createdAt:'2026-11-10T09:10:00Z'}]:[],
- events:[{id:`EV-${id}`,at:'2026-11-10T08:00:00Z',action:'Manifest imported',detail:`${count} parcels expected from ${origin}`,actor:'Demo coordinator'}],
+ events:[{id:`EV-${id}`,at:'2026-11-10T08:00:00Z',action:'Manifest imported',detail:`${count} parcels expected from ${origin}`,actor:'PoC coordinator'}],
 }));
+
