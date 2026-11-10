@@ -26,4 +26,6 @@ jobs:
           extensions: mbstring, pdo_sqlite
           coverage: none
       - run: composer install --prefer-dist --no-interaction
+      - run: cp .env.example .env
+      - run: php artisan key:generate --no-interaction
       - run: php artisan test
