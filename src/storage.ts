@@ -14,4 +14,4 @@ export async function checkIn(items:Shipment[],id:string,parcelId:string){if(bas
 export async function flag(items:Shipment[],id:string,parcelId:string,type:Exception['type'],note:string){if(base)return request(`/shipments/${id}/exceptions`,{parcelId,type,note});return save(items.map(s=>s.id===id?reportException(s,parcelId,type,note):s))}
 export async function resolve(items:Shipment[],id:string,exceptionId:string){if(base)return request(`/shipments/${id}/exceptions/${exceptionId}/resolve`,{});return save(items.map(s=>s.id===id?resolveException(s,exceptionId):s))}
 export async function importShipment(items:Shipment[],shipment:Shipment){if(base)return request('/shipments',{shipment});if(items.some(s=>s.id===shipment.id))throw new Error('This manifest reference already exists.');return save([shipment,...items])}
-export async function reset(){if(base)throw new Error('Reset is only available in the browser demo.');return save(seed())}
+export async function reset(){if(base)throw new Error('Reset is only available in the browser PoC.');return save(seed())}
