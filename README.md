@@ -2,6 +2,8 @@
 
 A goods-receiving and manifest reconciliation PoC by [Modern Software](https://modern-software.co.uk). Built to demonstrate full-stack engineering, operational product thinking and an incremental path to AI-assisted workflows.
 
+**Live frontend PoC:** [modern-warehouse.vercel.app](https://modern-warehouse.vercel.app). The published version uses browser-local sample data; the Laravel API and AI integration are not deployed.
+
 This is an independent portfolio project using fictional customers and shipments. It is not UKP software, a reproduction of its private systems, or a customs compliance product.
 
 ## The problem
@@ -33,7 +35,7 @@ The browser-local PoC is single-user. It does not provide shared persistence, pr
 | Receiving logic | Typed state transitions and validation | Implemented in browser PoC |
 | Backend | PHP and Laravel 13 | Implemented for local PoC use; feature-tested |
 | Database | MySQL | Intended deployed database; SQLite for isolated backend tests |
-| Frontend hosting | Vercel | Build configuration included; deployment pending |
+| Frontend hosting | Vercel | Deployed at modern-warehouse.vercel.app |
 | AWS application hosting | Container-based Laravel API, RDS MySQL, S3 attachments, CloudWatch logs | Planned; no infrastructure provisioned |
 | AI | Claude through Amazon Bedrock | Design stage; no live model calls |
 | Mobile | React Native using the same Laravel API | Future phase; no mobile app yet |
@@ -127,7 +129,7 @@ No direct model-to-database access. No automatic customs clearance. Bound tool l
 
 ## Vercel
 
-Import `glenadamson1984/modern-warehouse` into the `glenadamson1984s-projects` account. The frontend is at the repository root. Use the Vite preset, `pnpm build`, output directory `dist`, and Node.js 22. Leave `VITE_API_URL` empty initially. Vercel serves the frontend; it does not run the PHP backend in this configuration.
+The `modern-warehouse` project is deployed in the `glenadamson1984s-projects` account. The frontend is at the repository root. `vercel.json` explicitly declares one Vite frontend service with `pnpm build` and output directory `dist`, avoiding automatic detection of the Laravel scaffold as another frontend. `.vercelignore` excludes the PHP backend and local environment files from CLI uploads. Leave `VITE_API_URL` empty for browser-local sample data. Vercel serves the frontend; it does not run the PHP backend in this configuration.
 
 ## Next milestones
 
